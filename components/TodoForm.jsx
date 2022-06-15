@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, TextInput, Button } from 'react-native'
+import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native'
+import theme from '../constants/theme'
 
 export const TodoForm = ({ onAdd }) => {
 	const [todoTitle, setTodoTitle] = useState('')
+
 	const handleAdd = () => {
-		const newTodo = {
-			key: 0,
-			title: todoTitle,
-			checked: false,
+		if (todoTitle) {
+			const newTodo = {
+				key: 0,
+				title: todoTitle,
+				checked: false,
+			}
+			setTodoTitle('')
+			onAdd(newTodo)
 		}
-		setTodoTitle('')
-		onAdd(newTodo)
 	}
+
 	return (
 		<View style={styles.container}>
 			<TextInput
@@ -20,7 +25,9 @@ export const TodoForm = ({ onAdd }) => {
 				onChangeText={setTodoTitle}
 				style={styles.input}
 			/>
-			<Button title="Add" onPress={() => handleAdd()} disabled={!todoTitle} />
+			<TouchableOpacity style={styles.button} onPress={() => handleAdd()}>
+				<Text style={styles.buttonText}>Add</Text>
+			</TouchableOpacity>
 		</View>
 	)
 }
@@ -38,6 +45,15 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FFF',
 		padding: 4,
 		marginRight: 12,
+	},
+	button: {
+		backgroundColor: theme.button.color.background.primary,
+		paddingVertical: 6,
+		paddingHorizontal: 12,
+	},
+	buttonText: {
+		color: theme.button.color.text.primary,
+		fontWeight: 'bold',
 	},
 })
 

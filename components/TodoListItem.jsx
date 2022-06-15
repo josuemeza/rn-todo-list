@@ -1,13 +1,16 @@
 import React from 'react'
 import { StyleSheet, Text, View, Switch, TouchableOpacity } from 'react-native'
+import theme from '../constants/theme'
 
-export const TodoListItem = ({ todo, onCheckTodo, onRemoveTodo }) => {
+export const TodoListItem = ({ todo, onPress, onCheckTodo, onRemoveTodo }) => {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={() => onRemoveTodo(todo)} style={styles.removeButton}>
 				<Text style={styles.removeButtonText}>X</Text>
 			</TouchableOpacity>
-			<Text style={styles.text}>{todo.title}</Text>
+			<TouchableOpacity onPress={onPress} style={styles.titleButton}>
+				<Text style={styles.titleButtonText}>{todo.title}</Text>
+			</TouchableOpacity>
 			<Switch
 				onValueChange={() => onCheckTodo({ ...todo, checked: !todo.checked })}
 				value={todo.checked}
@@ -22,24 +25,25 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		borderBottomWidth: 1,
-		borderColor: '#BBB',
+		borderColor: theme.list.color.separator,
 	},
 	removeButton: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderColor: '#f00',
-		borderWidth: 1,
-		borderRadius: 12,
-		width: 24,
-		height: 24,
+		backgroundColor: theme.button.color.background.danger,
+		borderRadius: theme.button.size.small / 2,
+		width: theme.button.size.small,
+		height: theme.button.size.small,
 	},
 	removeButtonText: {
-		color: '#f00',
+		color: theme.button.color.text.danger,
 	},
-	text: {
+	titleButton: {
 		flex: 1,
-		fontSize: 16,
 		marginHorizontal: 16,
+	},
+	titleButtonText: {
+		fontSize: 16,
 	},
 })
 
