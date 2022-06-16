@@ -1,16 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View, Switch, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Switch } from 'react-native'
+import { Button } from './Button'
 import theme from '../constants/theme'
 
 export const TodoListItem = ({ todo, onPress, onCheckTodo, onRemoveTodo }) => {
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity onPress={() => onRemoveTodo(todo)} style={styles.removeButton}>
-				<Text style={styles.removeButtonText}>X</Text>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={onPress} style={styles.titleButton}>
-				<Text style={styles.titleButtonText}>{todo.title}</Text>
-			</TouchableOpacity>
+			<Button variant="danger" style={styles.rounded} onPress={() => onRemoveTodo(todo)}>
+				X
+			</Button>
+			<Button variant="link" onPress={onPress}>
+				{todo.title}
+			</Button>
 			<Switch
 				onValueChange={() => onCheckTodo({ ...todo, checked: !todo.checked })}
 				value={todo.checked}
@@ -27,25 +28,8 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderColor: theme.list.color.separator,
 	},
-	removeButton: {
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: theme.button.color.background.danger,
-		borderRadius: theme.button.size.small / 2,
-		width: theme.button.size.small,
-		height: theme.button.size.small,
-	},
-	removeButtonText: {
-		color: theme.button.color.text.danger,
-	},
-	titleButton: {
-		flex: 1,
-		marginHorizontal: 16,
-	},
-	titleButtonText: {
-		fontSize: 16,
-		color: theme.button.color.text.link,
-		textDecorationLine: 'underline',
+	rounded: {
+		borderRadius: 32,
 	},
 })
 

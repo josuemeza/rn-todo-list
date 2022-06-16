@@ -20,11 +20,19 @@ export default {
     size: {
       small: 24
     },
+    margin: {
+      small: 12,
+    },
+    font: {
+      size: {
+        body: 16,
+      }
+    },
     color: {
       background: {
         primary: '#154c79',
         default: '',
-        link: '#063970',
+        link: '#FFFFFF',
         danger: '#ff0000'
       },
       text: {
@@ -38,6 +46,12 @@ export default {
   list: {
     color: {
       separator: '#bbbbbb'
-    }
+    },
+    margin: {
+      small: 12,
+    },
+    padding: {
+      small: 12,
+    },
   }
 }

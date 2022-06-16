@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TextInput } from 'react-native'
+import { Button } from './Button'
 import theme from '../constants/theme'
 
 export const TodoForm = ({ onAdd }) => {
@@ -25,9 +26,9 @@ export const TodoForm = ({ onAdd }) => {
 				onChangeText={setTodoTitle}
 				style={styles.input}
 			/>
-			<TouchableOpacity style={styles.button} onPress={() => handleAdd()}>
-				<Text style={styles.buttonText}>Add</Text>
-			</TouchableOpacity>
+			<Button variant="primary" onPress={() => handleAdd()}>
+				{'Add'}
+			</Button>
 		</View>
 	)
 }

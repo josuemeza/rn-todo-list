@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
+import { Button } from './Button'
 
 export const RemoveTodoConfirmModal = ({ todo, onConfirm, onCancel }) => {
 	return (
@@ -11,15 +12,12 @@ export const RemoveTodoConfirmModal = ({ todo, onConfirm, onCancel }) => {
 			</View>
 			<View style={styles.toolbar}>
 				<View style={styles.toolbarButton}>
-					<Button title="Confirm" onPress={() => onConfirm()} />
+					<Button variant="primary" onPress={() => onConfirm()}>
+						{'Confirm'.toUpperCase()}
+					</Button>
 				</View>
 				<View style={styles.toolbarButton}>
-					<Button
-						title="Cancel"
-						onPress={() => onCancel()}
-						color="#BBB"
-						style={styles.toolbarButton}
-					/>
+					<Button onPress={() => onCancel()}>{'Cancel'.toUpperCase()}</Button>
 				</View>
 			</View>
 		</View>
