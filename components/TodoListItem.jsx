@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
 	},
 	titleButtonText: {
 		fontSize: 16,
+		color: theme.button.color.text.link,
+		textDecorationLine: 'underline',
 	},
 })
 

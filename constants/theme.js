@@ -8,6 +8,9 @@ export default {
     color: {
       background: '#eeeee4'
     },
+    margin: {
+      small: 12
+    }
   },
   button: {
     primary: {

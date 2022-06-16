@@ -8,7 +8,7 @@ export const Header = ({ title, onBackPress }) => {
 			<View style={styles.row}>
 				{onBackPress && (
 					<TouchableOpacity style={styles.backButton} onPress={onBackPress}>
-						<Text style={styles.backButtonText}>{'<'}</Text>
+						<Text style={styles.backButtonText}>{'< Back'}</Text>
 					</TouchableOpacity>
 				)}
 				<Text style={styles.title}>{title}</Text>
@@ -29,15 +29,14 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 12,
 	},
 	backButton: {
-		marginRight: 8,
-		width: 32,
+		marginRight: 16,
 		height: 32,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	backButtonText: {
 		color: '#FFF',
-		fontSize: 24,
+		fontSize: 16,
 	},
 	title: {
 		color: '#FFF',

@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 		backgroundColor: theme.screen.color.background,
 	},
 	content: {
-		margin: 12,
+		margin: theme.screen.margin.small,
 	},
 })
 
