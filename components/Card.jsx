@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-export const Card = ({ children }) => {
-	return <View style={styles.container}>{children}</View>
+export const Card = ({ children, style }) => {
+	return <View style={[styles.container, style]}>{children}</View>
 }
 
 const styles = StyleSheet.create({

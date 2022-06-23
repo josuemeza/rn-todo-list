@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Modal, FlatList } from 'react-native'
+import { StyleSheet, Alert, View, FlatList } from 'react-native'
 import { TodoForm } from '../components/TodoForm'
 import { TodoListItem } from '../components/TodoListItem'
-import { RemoveTodoConfirmModal } from '../components/RemoveTodoConfirmModal'
-import { Header } from '../components/Header'
 import { Card } from '../components/Card'
 import theme from '../constants/theme'
 
@@ -13,10 +11,9 @@ const DEFAULT_TODO_LIST = [
 	{ key: 3, title: '3th check', checked: false },
 ]
 
-export const TodoList = ({ onSelectTodo }) => {
+export const TodoList = ({ navigation }) => {
 	const [list, setList] = useState(DEFAULT_TODO_LIST)
 	const [, setNextTodoKey] = useState(DEFAULT_TODO_LIST.length + 1)
-	const [todoToRemove, setTodoToRemove] = useState()
 
 	const handleAdd = (newTodo) => {
 		setNextTodoKey((key) => {
@@ -33,43 +30,64 @@ export const TodoList = ({ onSelectTodo }) => {
 		})
 	}
 
-	const handleRemove = () => {
-		setTodoToRemove((todo) => {
-			setList((prev) => {
-				return prev.filter((item) => item.key !== todo.key)
-			})
-		})
+	const handleRemove = (todo, options = {}) => {
+		const {
+			title = 'Delete',
+			description = `Confirm delete ${todo.title} (${todo.key})?`,
+			onConfirm = () => {},
+		} = options
+		const buttons = [
+			{
+				text: 'Cancel',
+				style: 'cancel',
+			},
+			{
+				text: 'Confirm',
+				style: 'destructive',
+				onPress: () => {
+					setList((prev) => {
+						return prev.filter((item) => item.key !== todo.key)
+					})
+					onConfirm()
+				},
+			},
+		]
+		return Alert.alert(title, description, buttons)
 	}
+
+	const uncheckedFirstSort = (left, right) =>
+		left.checked === right.checked ? 0 : left.checked ? 1 : -1
 
 	return (
 		<View style={styles.container}>
-			<Header title="To-do list" />
 			<View style={styles.content}>
-				<Card>
+				<Card style={styles.formCard}>
 					<TodoForm onAdd={handleAdd} />
 				</Card>
-				<Card>
+				<Card style={styles.listCard}>
 					<FlatList
-						data={list}
+						data={list.sort(uncheckedFirstSort)}
+						style={styles.list}
 						renderItem={({ item }) => (
 							<TodoListItem
 								todo={item}
-								onPress={() => onSelectTodo(item)}
+								onPress={() => {
+									navigation.navigate('Single', {
+										todo: item,
+										onRemovePress: () =>
+											handleRemove(item, {
+												onConfirm: () => navigation.goBack(),
+											}),
+									})
+								}}
 								onCheckTodo={handleCheck}
-								onRemoveTodo={setTodoToRemove}
+								onRemoveTodo={() => handleRemove(item)}
 							/>
 						)}
 						keyExtractor={(item) => item.key}
 					/>
 				</Card>
 			</View>
-			<Modal animationType="slide" visible={Boolean(todoToRemove)}>
-				<RemoveTodoConfirmModal
-					todo={todoToRemove}
-					onConfirm={handleRemove}
-					onCancel={() => setTodoToRemove(undefined)}
-				/>
-			</Modal>
 		</View>
 	)
 }
@@ -80,7 +98,11 @@ const styles = StyleSheet.create({
 		backgroundColor: theme.screen.color.background,
 	},
 	content: {
+		flex: 1,
 		margin: theme.screen.margin.small,
+	},
+	listCard: {
+		flex: 1,
 	},
 })
 

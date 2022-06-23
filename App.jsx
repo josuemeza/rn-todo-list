@@ -1,21 +1,12 @@
 import { StatusBar } from 'expo-status-bar'
-import React, { useState } from 'react'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { TodoList } from './screens/TodoList'
-import { TodoSingle } from './screens/TodoSingle'
+import AppNavigation from './navigation'
 
 export const App = () => {
-  const [ todo, setTodo ] = useState()
-
-  const screen = todo ? (
-    <TodoSingle todo={todo} onBackPress={() => setTodo(undefined)}/>
-  ) : (
-    <TodoList onSelectTodo={setTodo} />
-  )
-
   return (
     <View style={styles.container}>
-      { screen }
+      <AppNavigation />
       <StatusBar style="auto" />
     </View>
   )

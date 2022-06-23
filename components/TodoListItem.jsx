@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderBottomWidth: 1,
 		borderColor: theme.list.color.separator,
+		minHeight: 50,
 	},
 	rounded: {
 		borderRadius: 32,
