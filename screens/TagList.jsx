@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Alert, FlatList } from 'react-native'
-import { Card } from '../components/Card'
-import { TagForm } from '../components/TagForm'
-import { TagListItem } from '../components/TagListItem'
+import { Card } from '../components/atoms'
+import { TagForm, TagListItem } from '../components/molecules'
 import theme from '../constants/theme'
 
 export const TagList = ({ navigation, route }) => {

@@ -9,7 +9,7 @@ const BottomTabs = createBottomTabNavigator()
 export const TabNavigator = () => {
 	return (
 		<BottomTabs.Navigator
-			initialRouteName="ToDoList"
+			initialRouteName='ToDoList'
 			screenOptions={{
 				headerShown: false,
 			}}
@@ -29,10 +29,9 @@ export const TabNavigator = () => {
 				component={TagListNavigator}
 				options={{
 					tabBarLabel: 'Tags',
-					// tabBarIcon: ({ focused }) => {
-					// 	const icon = focused ? 'pricetags' : 'pricetags-outline'
-					// 	return <Ionicons name={icon} size={24} color="black" />
-					// },
+					tabBarIcon: ({ focused }) => (
+						<Ionicons name={focused ? 'pricetags' : 'pricetags-outline'} size={24} color="black" />
+					),
 				}}
 			/>
 		</BottomTabs.Navigator>

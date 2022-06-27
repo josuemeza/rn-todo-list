@@ -1,26 +1,26 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button } from './Button'
-import { Input } from './Input'
-import theme from '../constants/theme'
+import { Button, Input } from '../atoms'
+import theme from '../../constants/theme'
 
-export const TagForm = ({ onAdd }) => {
-	const [tagTitle, setTagTitle] = useState('')
+export const TodoForm = ({ onAdd }) => {
+	const [todoTitle, setTodoTitle] = useState('')
 
 	const handleAdd = () => {
-		if (tagTitle) {
-			const newTag = {
+		if (todoTitle) {
+			const newTodo = {
 				key: 0,
-				title: tagTitle,
+				title: todoTitle,
+				checked: false,
 			}
-			setTagTitle('')
-			onAdd(newTag)
+			setTodoTitle('')
+			onAdd(newTodo)
 		}
 	}
 
 	return (
 		<View style={styles.container}>
-			<Input placeholder="New tag" value={tagTitle} onChangeText={setTagTitle} />
+			<Input placeholder="New to-do" value={todoTitle} onChangeText={setTodoTitle} />
 			<Button variant="primary" onPress={() => handleAdd()}>
 				{'Add'}
 			</Button>
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default TagForm
+export default TodoForm

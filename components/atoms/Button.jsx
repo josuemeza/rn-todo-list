@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
-import theme from '../constants/theme'
+import theme from '../../constants/theme'
 
 export const Button = ({ variant, style = {}, children, onPress }) => {
 	const variants = {

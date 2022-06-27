@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Alert, View, FlatList } from 'react-native'
-import { TodoForm } from '../components/TodoForm'
-import { TodoListItem } from '../components/TodoListItem'
-import { Card } from '../components/Card'
+import { TodoForm, TodoListItem } from '../components/molecules'
+import { Card } from '../components/atoms'
 import theme from '../constants/theme'
 
 export const TodoList = ({ navigation, route }) => {

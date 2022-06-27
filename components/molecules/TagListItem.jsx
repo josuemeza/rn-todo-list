@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { Button } from './Button'
-import theme from '../constants/theme'
+import { Button } from '../atoms'
+import theme from '../../constants/theme'
 
 export const TagListItem = ({ tag, onRemoveTag }) => {
 	return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { Card } from '../components/Card'
+import { Card } from '../components/atoms'
 import theme from '../constants/theme'
 
 export const TodoSingle = ({ route }) => {
