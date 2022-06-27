@@ -1,15 +1,10 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { Card } from '../components/Card'
-import { Button } from '../components/Button'
 import theme from '../constants/theme'
 
-export const TodoSingle = ({ navigation, route }) => {
-	const { todo, onRemovePress } = route.params
-
-	const handleDelete = () => {
-		onRemovePress()
-	}
+export const TodoSingle = ({ route }) => {
+	const { todo } = route.params
 
 	return (
 		<View style={styles.container}>
@@ -26,11 +21,6 @@ export const TodoSingle = ({ navigation, route }) => {
 					<View style={styles.infoRow}>
 						<Text style={styles.titleText}>State</Text>
 						<Text>{todo.checked ? 'Checked' : 'Unchecked'}</Text>
-					</View>
-					<View style={styles.buttonBarRow}>
-						<Button variant="danger" onPress={handleDelete}>
-							Delete
-						</Button>
 					</View>
 				</Card>
 			</View>

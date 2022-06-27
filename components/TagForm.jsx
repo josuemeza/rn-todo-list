@@ -4,24 +4,23 @@ import { Button } from './Button'
 import { Input } from './Input'
 import theme from '../constants/theme'
 
-export const TodoForm = ({ onAdd }) => {
-	const [todoTitle, setTodoTitle] = useState('')
+export const TagForm = ({ onAdd }) => {
+	const [tagTitle, setTagTitle] = useState('')
 
 	const handleAdd = () => {
-		if (todoTitle) {
-			const newTodo = {
+		if (tagTitle) {
+			const newTag = {
 				key: 0,
-				title: todoTitle,
-				checked: false,
+				title: tagTitle,
 			}
-			setTodoTitle('')
-			onAdd(newTodo)
+			setTagTitle('')
+			onAdd(newTag)
 		}
 	}
 
 	return (
 		<View style={styles.container}>
-			<Input placeholder="New to-do" value={todoTitle} onChangeText={setTodoTitle} />
+			<Input placeholder="New tag" value={tagTitle} onChangeText={setTagTitle} />
 			<Button variant="primary" onPress={() => handleAdd()}>
 				{'Add'}
 			</Button>
@@ -46,4 +45,4 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default TodoForm
+export default TagForm

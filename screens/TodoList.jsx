@@ -5,54 +5,46 @@ import { TodoListItem } from '../components/TodoListItem'
 import { Card } from '../components/Card'
 import theme from '../constants/theme'
 
-const DEFAULT_TODO_LIST = [
-	{ key: 1, title: '1st check', checked: true },
-	{ key: 2, title: '2nd check', checked: false },
-	{ key: 3, title: '3th check', checked: false },
-]
-
-export const TodoList = ({ navigation }) => {
-	const [list, setList] = useState(DEFAULT_TODO_LIST)
-	const [, setNextTodoKey] = useState(DEFAULT_TODO_LIST.length + 1)
+export const TodoList = ({ navigation, route }) => {
+	const {
+		params: { todoList },
+	} = route
+	const [, setNextTodoKey] = useState(todoList.length + 1)
 
 	const handleAdd = (newTodo) => {
 		setNextTodoKey((key) => {
-			setList((prev) => [{ ...newTodo, key }, ...prev])
+			navigation.setParams({
+				todoList: [{ ...newTodo, key }, ...todoList],
+			})
 			return key + 1
 		})
 	}
 
 	const handleCheck = (todo) => {
-		setList((prev) => {
-			return prev.map((item) => {
+		navigation.setParams({
+			todoList: todoList.map((item) => {
 				return item.key === todo.key ? todo : item
-			})
+			}),
 		})
 	}
 
-	const handleRemove = (todo, options = {}) => {
-		const {
-			title = 'Delete',
-			description = `Confirm delete ${todo.title} (${todo.key})?`,
-			onConfirm = () => {},
-		} = options
-		const buttons = [
-			{
-				text: 'Cancel',
-				style: 'cancel',
+	const handleRemove = (todo) => {
+		const title = 'Delete'
+		const description = `Confirm delete ${todo.title} (${todo.key})?`
+		const cancelButton = {
+			text: 'Cancel',
+			style: 'cancel',
+		}
+		const confirmButton = {
+			text: 'Confirm',
+			style: 'destructive',
+			onPress: () => {
+				navigation.setParams({
+					todoList: todoList.filter((item) => item.key !== todo.key),
+				})
 			},
-			{
-				text: 'Confirm',
-				style: 'destructive',
-				onPress: () => {
-					setList((prev) => {
-						return prev.filter((item) => item.key !== todo.key)
-					})
-					onConfirm()
-				},
-			},
-		]
-		return Alert.alert(title, description, buttons)
+		}
+		return Alert.alert(title, description, [cancelButton, confirmButton])
 	}
 
 	const uncheckedFirstSort = (left, right) =>
@@ -66,18 +58,15 @@ export const TodoList = ({ navigation }) => {
 				</Card>
 				<Card style={styles.listCard}>
 					<FlatList
-						data={list.sort(uncheckedFirstSort)}
+						data={todoList?.sort(uncheckedFirstSort)}
 						style={styles.list}
 						renderItem={({ item }) => (
 							<TodoListItem
 								todo={item}
 								onPress={() => {
-									navigation.navigate('Single', {
-										todo: item,
-										onRemovePress: () =>
-											handleRemove(item, {
-												onConfirm: () => navigation.goBack(),
-											}),
+									navigation.navigate({
+										name: 'Single',
+										params: { todo: item },
 									})
 								}}
 								onCheckTodo={handleCheck}

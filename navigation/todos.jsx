@@ -6,7 +6,13 @@ import theme from '../constants/theme'
 
 const Stack = createNativeStackNavigator()
 
-export const MainNavigator = () => {
+const DEFAULT_TODO_LIST = [
+	{ key: 1, title: '1st check', checked: true },
+	{ key: 2, title: '2nd check', checked: false },
+	{ key: 3, title: '3th check', checked: false },
+]
+
+export const TodoListNavigator = () => {
 	return (
 		<Stack.Navigator
 			initialRouteName="List"
@@ -20,7 +26,14 @@ export const MainNavigator = () => {
 				},
 			}}
 		>
-			<Stack.Screen name="List" component={TodoList} options={{ title: 'To-do list' }} />
+			<Stack.Screen
+				name="List"
+				component={TodoList}
+				options={{ title: 'To-do list' }}
+				initialParams={{
+					todoList: DEFAULT_TODO_LIST,
+				}}
+			/>
 			<Stack.Screen
 				name="Single"
 				component={TodoSingle}
@@ -36,4 +49,4 @@ export const MainNavigator = () => {
 	)
 }
 
-export default MainNavigator
+export default TodoListNavigator
