@@ -1,15 +1,9 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import TagList from '../screens/TagList'
+import { TagList } from '../screens'
 import theme from '../constants/theme'
 
 const Stack = createNativeStackNavigator()
-
-const DEFAULT_TAG_LIST = [
-	{ key: 1, title: 'House' },
-	{ key: 2, title: 'School' },
-	{ key: 3, title: 'Work' },
-]
 
 export const TagListNavigator = () => {
 	return (
@@ -25,14 +19,7 @@ export const TagListNavigator = () => {
 				},
 			}}
 		>
-			<Stack.Screen
-				name="List"
-				component={TagList}
-				options={{ title: 'Tags' }}
-				initialParams={{
-					tagList: DEFAULT_TAG_LIST,
-				}}
-			/>
+			<Stack.Screen name="List" component={TagList} options={{ title: 'Tags' }} />
 		</Stack.Navigator>
 	)
 }

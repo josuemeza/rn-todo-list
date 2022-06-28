@@ -1,22 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, View, Alert, FlatList } from 'react-native'
+import { addTag, deleteTag } from '../store/actions/tag.actions'
 import { Card } from '../components/atoms'
 import { TagForm, TagListItem } from '../components/molecules'
 import theme from '../constants/theme'
 
-export const TagList = ({ navigation, route }) => {
-	const {
-		params: { tagList },
-	} = route
-	const [, setNextTodoKey] = useState(tagList.length + 1)
+export const TagList = () => {
+	const dispatch = useDispatch()
+	const tagList = useSelector((state) => state.tag.list)
 
-	const handleAdd = (newTag) => {
-		setNextTodoKey((key) => {
-			navigation.setParams({
-				tagList: [{ ...newTag, key }, ...tagList],
-			})
-			return key + 1
-		})
+	const handleAdd = (tag) => {
+		dispatch(addTag(tag))
 	}
 
 	const handleRemove = (tag) => {
@@ -30,9 +25,7 @@ export const TagList = ({ navigation, route }) => {
 			text: 'Confirm',
 			style: 'destructive',
 			onPress: () => {
-				navigation.setParams({
-					tagList: tagList.filter((item) => item.key !== tag.key),
-				})
+				dispatch(deleteTag(tag))
 			},
 		}
 		return Alert.alert(title, description, [cancelButton, confirmButton])

@@ -1,30 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, Alert, View, FlatList } from 'react-native'
+import { addTodo, deleteTodo, editTodo } from '../store/actions/todo.actions'
 import { TodoForm, TodoListItem } from '../components/molecules'
 import { Card } from '../components/atoms'
 import theme from '../constants/theme'
 
-export const TodoList = ({ navigation, route }) => {
-	const {
-		params: { todoList },
-	} = route
-	const [, setNextTodoKey] = useState(todoList.length + 1)
+export const TodoList = ({ navigation }) => {
+	const dispatch = useDispatch()
+	const todoList = useSelector((state) => state.todo.list)
 
-	const handleAdd = (newTodo) => {
-		setNextTodoKey((key) => {
-			navigation.setParams({
-				todoList: [{ ...newTodo, key }, ...todoList],
-			})
-			return key + 1
+	const handleAdd = (todo) => {
+		dispatch(addTodo(todo))
+	}
+
+	const handleSelect = (todo) => {
+		navigation.navigate({
+			name: 'Single',
+			params: {
+				key: todo.key,
+				title: todo.title,
+			},
 		})
 	}
 
 	const handleCheck = (todo) => {
-		navigation.setParams({
-			todoList: todoList.map((item) => {
-				return item.key === todo.key ? todo : item
-			}),
-		})
+		dispatch(editTodo(todo))
 	}
 
 	const handleRemove = (todo) => {
@@ -37,11 +38,7 @@ export const TodoList = ({ navigation, route }) => {
 		const confirmButton = {
 			text: 'Confirm',
 			style: 'destructive',
-			onPress: () => {
-				navigation.setParams({
-					todoList: todoList.filter((item) => item.key !== todo.key),
-				})
-			},
+			onPress: () => dispatch(deleteTodo(todo)),
 		}
 		return Alert.alert(title, description, [cancelButton, confirmButton])
 	}
@@ -62,13 +59,8 @@ export const TodoList = ({ navigation, route }) => {
 						renderItem={({ item }) => (
 							<TodoListItem
 								todo={item}
-								onPress={() => {
-									navigation.navigate({
-										name: 'Single',
-										params: { todo: item },
-									})
-								}}
-								onCheckTodo={handleCheck}
+								onPress={() => handleSelect(item)}
+								onCheckTodo={({ checked }) => handleCheck({ ...item, checked })}
 								onRemoveTodo={() => handleRemove(item)}
 							/>
 						)}

@@ -1,10 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { StyleSheet, View, Text } from 'react-native'
 import { Card } from '../components/atoms'
 import theme from '../constants/theme'
 
 export const TodoSingle = ({ route }) => {
-	const { todo } = route.params
+	const { key } = route.params
+	const todo = useSelector((state) => state.todo.list.find((i) => i.key === key))
 
 	return (
 		<View style={styles.container}>

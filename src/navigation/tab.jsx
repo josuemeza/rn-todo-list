@@ -9,7 +9,7 @@ const BottomTabs = createBottomTabNavigator()
 export const TabNavigator = () => {
 	return (
 		<BottomTabs.Navigator
-			initialRouteName='ToDoList'
+			initialRouteName="ToDoList"
 			screenOptions={{
 				headerShown: false,
 			}}
