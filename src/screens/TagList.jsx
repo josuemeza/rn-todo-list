@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, View, Alert, FlatList } from 'react-native'
-import { addTag, deleteTag } from '../store/actions/tag.actions'
+import { addTag, deleteTag } from '../store/tag.slice'
 import { Card } from '../components/atoms'
 import { TagForm, TagListItem } from '../components/molecules'
 import theme from '../constants/theme'

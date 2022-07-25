@@ -1,10 +1,10 @@
-import { createStore, combineReducers } from 'redux'
-import tagReducer from './reducers/tag.reducer'
-import todoReducer from './reducers/todo.reducer'
+import { configureStore } from "@reduxjs/toolkit"
+import todoSliceReducer from "./todo.slice"
+import tagSliceReducer from "./tag.slice"
 
-const RootReducer = combineReducers({
-  todo: todoReducer,
-  tag: tagReducer,
+export const store = configureStore({
+	reducer: {
+		todo: todoSliceReducer,
+		tag: tagSliceReducer
+	}
 })
-
-export default createStore(RootReducer)

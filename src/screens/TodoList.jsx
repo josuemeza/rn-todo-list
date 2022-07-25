@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, Alert, View, FlatList } from 'react-native'
-import { addTodo, deleteTodo, editTodo } from '../store/actions/todo.actions'
+import { addTodo, deleteTodo, editTodo } from '../store/todo.slice'
 import { TodoForm, TodoListItem } from '../components/molecules'
 import { Card } from '../components/atoms'
 import theme from '../constants/theme'
@@ -54,7 +54,7 @@ export const TodoList = ({ navigation }) => {
 				</Card>
 				<Card style={styles.listCard}>
 					<FlatList
-						data={todoList?.sort(uncheckedFirstSort)}
+						data={[...todoList].sort(uncheckedFirstSort)}
 						style={styles.list}
 						renderItem={({ item }) => (
 							<TodoListItem
