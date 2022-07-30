@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { StyleSheet, View, Alert, FlatList } from 'react-native'
-import { addTag, deleteTag } from '../store/tag.slice'
+import { Text, StyleSheet, View, Alert, FlatList } from 'react-native'
+import { loadTags, addTag, deleteTag } from '../store/tag.slice'
 import { Card } from '../components/atoms'
 import { TagForm, TagListItem } from '../components/molecules'
 import theme from '../constants/theme'
 
 export const TagList = () => {
 	const dispatch = useDispatch()
+	const isLoading = useSelector((state) => state.tag.loading)
 	const tagList = useSelector((state) => state.tag.list)
+
+	useEffect(() => {
+		dispatch(loadTags())
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const handleAdd = (tag) => {
 		dispatch(addTag(tag))
@@ -38,6 +44,7 @@ export const TagList = () => {
 					<TagForm onAdd={handleAdd} />
 				</Card>
 				<Card style={styles.listCard}>
+					<Text>{isLoading ? 'Requesting data' : 'Up to date'}</Text>
 					<FlatList
 						data={tagList}
 						style={styles.list}

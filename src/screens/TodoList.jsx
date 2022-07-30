@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { StyleSheet, Alert, View, FlatList } from 'react-native'
-import { addTodo, deleteTodo, editTodo } from '../store/todo.slice'
+import { Text, StyleSheet, Alert, View, FlatList } from 'react-native'
+import { loadTodos, addTodo, deleteTodo, editTodo } from '../store/todo.slice'
 import { TodoForm, TodoListItem } from '../components/molecules'
 import { Card } from '../components/atoms'
 import theme from '../constants/theme'
 
 export const TodoList = ({ navigation }) => {
 	const dispatch = useDispatch()
+	const isLoading = useSelector((state) => state.todo.loading)
 	const todoList = useSelector((state) => state.todo.list)
+
+	useEffect(() => {
+		dispatch(loadTodos())
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const handleAdd = (todo) => {
 		dispatch(addTodo(todo))
@@ -53,6 +59,7 @@ export const TodoList = ({ navigation }) => {
 					<TodoForm onAdd={handleAdd} />
 				</Card>
 				<Card style={styles.listCard}>
+					<Text>{isLoading ? 'Requesting data' : 'Up to date'}</Text>
 					<FlatList
 						data={[...todoList].sort(uncheckedFirstSort)}
 						style={styles.list}

@@ -1,15 +1,15 @@
 {
-    "root": true,
-    "parser": "@babel/eslint-parser",
-    "extends": "@react-native-community",
-    "parserOptions": {
-        "ecmaVersion": 8,
-        "requireConfigFile": false,
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
-    "rules": {
+	"root": true,
+	"parser": "@babel/eslint-parser",
+	"extends": "@react-native-community",
+	"parserOptions": {
+		"ecmaVersion": 8,
+		"requireConfigFile": false,
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"rules": {
 		"semi": "off"
 	}
 }
