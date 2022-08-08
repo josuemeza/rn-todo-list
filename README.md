@@ -36,6 +36,10 @@ Basic todo list in React Native made using Expo.
 
 - Image picker with expo-image-picker
 
+## Storage
+
+- Store user data in a DB.
+
 ## Author
 
 Josue Meza Peña, contacto@josuemeza.com
