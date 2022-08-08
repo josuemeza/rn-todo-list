@@ -7,13 +7,13 @@ export const Button = ({ variant, style = {}, textStyle = {}, children, onPress 
 		primary: primaryVariantStyles,
 		danger: dangerVariantStyles,
 		link: linkVariantStyles,
-		clear: clearVariantStyles
+		clear: clearVariantStyles,
 	}
 	const variantStyles = variants.hasOwnProperty(variant) ? variants[variant] : {}
 
 	return (
 		<TouchableOpacity onPress={onPress} style={[styles.container, variantStyles.container, style]}>
-			{ typeof children === 'string' ? (
+			{typeof children === 'string' ? (
 				<Text style={[styles.text, variantStyles.text, textStyle]}>{children}</Text>
 			) : (
 				children
@@ -69,10 +69,10 @@ const linkVariantStyles = StyleSheet.create({
 
 const clearVariantStyles = StyleSheet.create({
 	container: {
-		backgroundColor: "transparent",
+		backgroundColor: 'transparent',
 		padding: 0,
-		margin: 0
-	}
+		margin: 0,
+	},
 })
 
 export default Button

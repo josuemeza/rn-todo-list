@@ -18,11 +18,7 @@ export const TagForm = ({ onAdd }) => {
 
 	return (
 		<View>
-			<Input
-				placeholder="New tag"
-				value={tagTitle}
-				onChangeText={setTagTitle}
-			/>
+			<Input placeholder="New tag" value={tagTitle} onChangeText={setTagTitle} />
 			<View style={styles.buttonBar}>
 				<Button variant="primary" onPress={() => handleAdd()}>
 					{'Add'}
@@ -36,7 +32,7 @@ const styles = StyleSheet.create({
 	buttonBar: {
 		flexDirection: 'row',
 		justifyContent: 'flex-end',
-	}
+	},
 })
 
 export default TagForm

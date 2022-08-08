@@ -1,8 +1,8 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet, View, Alert, Image } from "react-native"
-import * as ImagePicker from "expo-image-picker"
-import { Card, Input, Button } from "../components/atoms"
+import { StyleSheet, View, Alert, Image } from 'react-native'
+import * as ImagePicker from 'expo-image-picker'
+import { Card, Input, Button } from '../components/atoms'
 import { addTodo, editTodo } from '../store/todo.slice'
 
 export const TodoForm = ({ route, navigation }) => {
@@ -15,11 +15,11 @@ export const TodoForm = ({ route, navigation }) => {
 
 	const verifyPermissions = async () => {
 		const { status } = await ImagePicker.requestCameraPermissionsAsync()
-		if(status !== "granted") {
+		if (status !== 'granted') {
 			Alert.alert(
-				"Missing permissions",
-				"You must to provide required permissions to use this feature",
-				[{ text: "Ok" }]
+				'Missing permissions',
+				'You must to provide required permissions to use this feature',
+				[{ text: 'Ok' }]
 			)
 			return false
 		}
@@ -27,11 +27,11 @@ export const TodoForm = ({ route, navigation }) => {
 	}
 
 	const handleSave = () => {
-		if(isEditing) {
+		if (isEditing) {
 			const edited = {
 				...todo,
 				title,
-				photo
+				photo,
 			}
 			dispatch(editTodo(edited))
 		} else {
@@ -42,11 +42,13 @@ export const TodoForm = ({ route, navigation }) => {
 
 	const handleSetImage = async () => {
 		const isCammeraPermissionGranted = await verifyPermissions()
-		if(!isCammeraPermissionGranted) return
+		if (!isCammeraPermissionGranted) {
+			return
+		}
 		const image = await ImagePicker.launchCameraAsync({
 			allowsEditing: true,
 			aspect: [16, 9],
-			quality: 0.7
+			quality: 0.7,
 		})
 		setPhoto(image.uri)
 	}
@@ -54,15 +56,11 @@ export const TodoForm = ({ route, navigation }) => {
 	return (
 		<View style={styles.container}>
 			<Card>
-				<Input
-					placeholder="New to-do"
-					value={title}
-					onChangeText={setTitle}
-				/>
+				<Input placeholder="New to-do" value={title} onChangeText={setTitle} />
 				<View style={styles.imagePicker}>
-					{ photo ? (
+					{photo ? (
 						<View style={styles.imageContainer}>
-							<Image source={{ uri: photo }} style={styles.image}/>
+							<Image source={{ uri: photo }} style={styles.image} />
 							<View style={styles.imageContainerButtonBar}>
 								<Button variant="link" onPress={() => setPhoto(null)}>
 									Remove
@@ -89,31 +87,31 @@ export const TodoForm = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
 	container: {
-		margin: 16
+		margin: 16,
 	},
 	buttonBar: {
-		flexDirection: "row",
-		justifyContent: "flex-end"
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
 	},
 	imagePicker: {
-		marginBottom: 12
+		marginBottom: 12,
 	},
 	imageContainer: {
 		borderBottomWidth: 1,
-		padding: 6
+		padding: 6,
 	},
 	imageContainerButtonBar: {
-		flexDirection: "row",
-		justifyContent: "center"
+		flexDirection: 'row',
+		justifyContent: 'center',
 	},
 	image: {
 		minHeight: 180,
 	},
 	unsetedImage: {
-		flexDirection: "row",
-		justifyContent: "center",
+		flexDirection: 'row',
+		justifyContent: 'center',
 		padding: 12,
-		borderBottomWidth: 1
+		borderBottomWidth: 1,
 	},
 })
 

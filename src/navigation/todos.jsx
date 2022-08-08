@@ -27,17 +27,19 @@ export const TodoListNavigator = () => {
 				options={({ navigation }) => ({
 					title: 'To-do list',
 					headerRight: () => (
-						<Button variant="clear" onPress={() => navigation.navigate("FormScreen")}>
-							<Ionicons name="add-circle-outline" size={26} color="#FFF"/>
+						<Button variant="clear" onPress={() => navigation.navigate('FormScreen')}>
+							<Ionicons name="add-circle-outline" size={26} color="#FFF" />
 						</Button>
-					)
+					),
 				})}
 			/>
 			<Stack.Screen
 				name="SingleScreen"
 				component={TodoSingle}
 				options={({ route, navigation }) => {
-					const { params: { key, title } } = route
+					const {
+						params: { key, title },
+					} = route
 					return {
 						title,
 						headerRight: () => (
@@ -45,22 +47,18 @@ export const TodoListNavigator = () => {
 								variant="clear"
 								onPress={() => {
 									navigation.navigate({
-										name: "FormScreen",
-										params: { key }
+										name: 'FormScreen',
+										params: { key },
 									})
 								}}
 							>
-								<Ionicons name="create-outline" size={26} color="#FFF"/>
+								<Ionicons name="create-outline" size={26} color="#FFF" />
 							</Button>
-						)
+						),
 					}
 				}}
 			/>
-			<Stack.Screen
-				name="FormScreen"
-				component={TodoForm}
-				options={{ title: 'To-do form' }}
-			/>
+			<Stack.Screen name="FormScreen" component={TodoForm} options={{ title: 'To-do form' }} />
 		</Stack.Navigator>
 	)
 }

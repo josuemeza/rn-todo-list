@@ -9,10 +9,7 @@ const BottomTabs = createBottomTabNavigator()
 
 export const TabNavigator = () => {
 	return (
-		<BottomTabs.Navigator
-			initialRouteName="ToDoList"
-			screenOptions={{ headerShown: false }}
-		>
+		<BottomTabs.Navigator initialRouteName="ToDoList" screenOptions={{ headerShown: false }}>
 			<BottomTabs.Screen
 				name="ToDoList"
 				component={TodoListNavigator}

@@ -6,15 +6,10 @@ import TabNavigator from './tab'
 import AuthNavigator from './auth'
 
 export const AppNavigation = () => {
-	const user = useSelector(state => state.session.user)
+	const user = useSelector((state) => state.session.user)
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<NavigationContainer>
-				{ user
-					? <TabNavigator />
-					: <AuthNavigator />
-				}
-			</NavigationContainer>
+			<NavigationContainer>{user ? <TabNavigator /> : <AuthNavigator />}</NavigationContainer>
 		</SafeAreaView>
 	)
 }

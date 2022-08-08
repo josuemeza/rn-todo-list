@@ -4,18 +4,12 @@ import { StyleSheet, View, TextInput, Text } from 'react-native'
 export const Input = ({ variant, placeholder, value, onChangeText, error, style }) => {
 	const variants = {
 		email: { props: emailVariantProps },
-		password: { props: passwordVariantProps }
+		password: { props: passwordVariantProps },
 	}
 
-	const variantParams = variants.hasOwnProperty(variant)
-		? variants[variant].props
-		: {}
+	const variantParams = variants.hasOwnProperty(variant) ? variants[variant].props : {}
 
-	const textInputStyles = [
-		styles.input,
-		error ? errorVariantStyles.input : {},
-		style
-	]
+	const textInputStyles = [styles.input, error ? errorVariantStyles.input : {}, style]
 
 	return (
 		<View>
@@ -24,11 +18,9 @@ export const Input = ({ variant, placeholder, value, onChangeText, error, style 
 				value={value}
 				onChangeText={onChangeText}
 				style={textInputStyles}
-				{ ...variantParams }
+				{...variantParams}
 			/>
-			{ error && (
-				<Text style={styles.errorLabel}>{ error }</Text>
-			)}
+			{error && <Text style={styles.errorLabel}>{error}</Text>}
 		</View>
 	)
 }
@@ -40,28 +32,28 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FFF',
 		padding: 4,
 		marginVertical: 6,
-		minHeight: 36
+		minHeight: 36,
 	},
 	errorLabel: {
 		fontSize: 12,
-		color: "#F00"
-	}
+		color: '#F00',
+	},
 })
 
 const emailVariantProps = {
 	keyboardType: 'email-address',
 	autoCapitalize: 'none',
-	autoCorrect: false
+	autoCorrect: false,
 }
 
 const passwordVariantProps = {
-	secureTextEntry: true
+	secureTextEntry: true,
 }
 
 const errorVariantStyles = StyleSheet.create({
 	input: {
 		borderBottomColor: '#F00',
-		color: "#F00"
+		color: '#F00',
 	},
 })
 

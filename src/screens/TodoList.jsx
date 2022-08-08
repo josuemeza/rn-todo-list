@@ -56,16 +56,14 @@ export const TodoList = ({ navigation }) => {
 	}
 
 	const uncheckedFirstSort = (left, right) => {
-		if(left.checked === right.checked) {
+		if (left.checked === right.checked) {
 			return 0
 		} else {
 			return left.checked ? 1 : -1
 		}
 	}
 
-	const status = isLoading
-		? 'Requesting data'
-		: 'Up to date'
+	const status = isLoading ? 'Requesting data' : 'Up to date'
 
 	return (
 		<View style={styles.container}>
@@ -100,12 +98,12 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 16,
 	},
 	statusBar: {
-		flexDirection: "row",
-		margin: 6
+		flexDirection: 'row',
+		margin: 6,
 	},
 	statusTitle: {
-		fontWeight: "bold",
-		marginRight: 6
+		fontWeight: 'bold',
+		marginRight: 6,
 	},
 	listCard: {
 		flex: 1,

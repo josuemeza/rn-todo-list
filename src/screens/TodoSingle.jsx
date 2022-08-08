@@ -24,9 +24,7 @@ export const TodoSingle = ({ route }) => {
 						<Text style={styles.titleText}>State</Text>
 						<Text>{todo.checked ? 'Checked' : 'Unchecked'}</Text>
 					</View>
-					{ todo.photo && (
-						<Image source={{ uri: todo.photo }} style={styles.image}/>
-					)}
+					{todo.photo && <Image source={{ uri: todo.photo }} style={styles.image} />}
 				</Card>
 			</View>
 		</View>
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end',
 	},
 	image: {
-		height: 240
+		height: 240,
 	},
 })
 

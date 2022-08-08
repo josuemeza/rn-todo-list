@@ -12,10 +12,10 @@ export const TodoListItem = ({ todo, onPress, onCheckTodo, onRequestEdit, onRemo
 			<View style={styles.buttonBar}>
 				<View style={styles.actionButtons}>
 					<Button variant="clear" onPress={handleEditPress}>
-						<Ionicons name="create" color="#008000" size={24}/>
+						<Ionicons name="create" color="#008000" size={24} />
 					</Button>
 					<Button variant="clear" onPress={handleDeletePress}>
-						<Ionicons name="trash" color="#F00" size={24}/>
+						<Ionicons name="trash" color="#F00" size={24} />
 					</Button>
 				</View>
 				<Switch
@@ -24,9 +24,7 @@ export const TodoListItem = ({ todo, onPress, onCheckTodo, onRequestEdit, onRemo
 				/>
 			</View>
 			<Button variant="clear" onPress={onPress}>
-				{ todo.photo && (
-					<Image source={{ uri: todo.photo }} style={styles.image}/>
-				)}
+				{todo.photo && <Image source={{ uri: todo.photo }} style={styles.image} />}
 				<Text style={styles.titleLabel}>{todo.title}</Text>
 			</Button>
 		</Card>
@@ -34,21 +32,20 @@ export const TodoListItem = ({ todo, onPress, onCheckTodo, onRequestEdit, onRemo
 }
 
 const styles = StyleSheet.create({
-	container: {
-	},
+	container: {},
 	image: {
-		height: 180
+		height: 180,
 	},
 	buttonBar: {
-		flexDirection: "row"
+		flexDirection: 'row',
 	},
 	actionButtons: {
 		flex: 1,
-		flexDirection: "row"
+		flexDirection: 'row',
 	},
 	titleLabel: {
 		fontSize: 25,
-	}
+	},
 })
 
 export default TodoListItem
