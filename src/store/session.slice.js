@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchAuth } from "../data/auth"
+import * as Storage from "../data/storage"
 
 export const tagSlice = createSlice({
 	name: 'session',
@@ -24,15 +25,37 @@ export const tagSlice = createSlice({
 	}
 })
 
+export const initSession = () => {
+	return async (dispatch) => {
+		try {
+			dispatch(setLoading(true))
+			await Storage.init()
+			const result = await Storage.getUser()
+			const { uid, username, token } = result.rows._array.pop() || {}
+			if(uid && token) {
+				dispatch(setUser({ uid, username }))
+				dispatch(setToken(token))
+			}
+			console.log("Readed", { uid, username, token })
+		} catch(error) {
+			console.error(error)
+		} finally {
+			dispatch(setLoading(false))
+		}
+	}
+}
+
 export const signIn = (username, password) => {
 	return async (dispatch) => {
 		try {
 			dispatch(setLoading(true))
 			const { data } = await fetchAuth({
+				type: 'SIGN_IN',
 				credentials: { username, password }
 			})
 			const { idToken, localId } = data
 			if(idToken && localId) {
+				await Storage.setUser(localId, username, idToken)
 				dispatch(setUser({ uid: localId, username }))
 				dispatch(setToken(idToken))
 			}
@@ -49,11 +72,12 @@ export const signUp = (username, password) => {
 		try {
 			dispatch(setLoading(true))
 			const { data } = await fetchAuth({
-				signUp: true,
+				type: "SIGN_UP",
 				credentials: { username, password }
 			})
 			const { idToken, localId } = data
 			if(idToken && localId) {
+				await Storage.setUser(localId, username, idToken)
 				dispatch(setUser({ uid: localId, username }))
 				dispatch(setToken(idToken))
 			}
@@ -67,6 +91,7 @@ export const signUp = (username, password) => {
 
 export const signOut = () => {
 	return async (dispatch) => {
+		await Storage.clearUser()
 		dispatch(setUser(null))
 		dispatch(setToken(null))
 	}

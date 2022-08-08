@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch } from 'react-redux'
 import { Text, StyleSheet, View, KeyboardAvoidingView } from 'react-native'
 import { Button, Card } from "../components/atoms"
 import { CredentialsForm } from "../components/molecules"
-import { signIn, signUp, guestSignIn } from '../store/session.slice'
+import { initSession, signIn, signUp, guestSignIn } from '../store/session.slice'
 
 export const Auth = () => {
 	const dispatch = useDispatch()
@@ -16,6 +16,8 @@ export const Auth = () => {
 	const prompt = isSignIn
 		? "Do you want to register?"
 		: "Already have an account?"
+
+	useEffect(() => { dispatch(initSession()) }, [])
 
 	return (
 		<KeyboardAvoidingView style={styles.containerKeyboard} behavior="height">
