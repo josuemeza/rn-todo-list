@@ -41,7 +41,7 @@ export const loadTags = () => {
 				dispatch(setList(list))
 			}
 		} catch(error) {
-			console.log(error)
+			console.error(error)
 		} finally {
 			dispatch(setLoading(false))
 		}
@@ -62,7 +62,7 @@ export const addTag = (tag) => {
 				...newData
 			}))
 		} catch(error) {
-			console.log(error)
+			console.error(error)
 		} finally {
 			dispatch(setLoading(false))
 		}
@@ -77,7 +77,7 @@ export const editTag = (tag) => {
 			await fetchTags({ method: "PUT", key, body: newData })
 			dispatch(replaceTag(tag))
 		} catch(error) {
-			console.log(error)
+			console.error(error)
 		} finally {
 			dispatch(setLoading(false))
 		}
@@ -91,7 +91,7 @@ export const deleteTag = (tag) => {
 			await fetchTags({ method: "DELETE", key })
 			dispatch(removeTag({ key }))
 		} catch(error) {
-			console.log(error)
+			console.error(error)
 		} finally {
 			dispatch(setLoading(false))
 		}

@@ -1,3 +1,6 @@
 export { TagList } from "./TagList"
 export { TodoList } from "./TodoList"
 export { TodoSingle } from "./TodoSingle"
+export { TodoForm } from "./TodoForm"
+export { Auth } from "./Auth"
+export { Profile } from "./Profile"

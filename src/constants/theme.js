@@ -32,7 +32,7 @@ export default {
       background: {
         primary: '#154c79',
         default: '',
-        link: '#FFFFFF',
+        link: 'transparent',
         danger: '#ff0000'
       },
       text: {

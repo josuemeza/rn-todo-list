@@ -1,14 +1,14 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { TagList } from '../screens'
+import { Profile } from '../screens'
 import theme from '../constants/theme'
 
 const Stack = createNativeStackNavigator()
 
-export const TagListNavigator = () => {
+export const ProfileNavigator = () => {
 	return (
 		<Stack.Navigator
-			initialRouteName="ListScreen"
+			initialRouteName="ProfileScreen"
 			screenOptions={{
 				headerStyle: {
 					backgroundColor: theme.header.color.background,
@@ -19,9 +19,9 @@ export const TagListNavigator = () => {
 				},
 			}}
 		>
-			<Stack.Screen name="ListScreen" component={TagList} options={{ title: 'Tags' }} />
+			<Stack.Screen name="ProfileScreen" component={Profile} options={{ title: 'Profile' }} />
 		</Stack.Navigator>
 	)
 }
 
-export default TagListNavigator
+export default ProfileNavigator

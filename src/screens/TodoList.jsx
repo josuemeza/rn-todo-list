@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Text, StyleSheet, Alert, View, FlatList } from 'react-native'
-import { loadTodos, addTodo, deleteTodo, editTodo } from '../store/todo.slice'
-import { TodoForm, TodoListItem } from '../components/molecules'
+import { loadTodos, deleteTodo, editTodo } from '../store/todo.slice'
+import { TodoListItem } from '../components/molecules'
 import { Card } from '../components/atoms'
 import theme from '../constants/theme'
 
@@ -16,13 +16,19 @@ export const TodoList = ({ navigation }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const handleAdd = (todo) => {
-		dispatch(addTodo(todo))
-	}
-
 	const handleSelect = (todo) => {
 		navigation.navigate({
-			name: 'Single',
+			name: 'SingleScreen',
+			params: {
+				key: todo.key,
+				title: todo.title,
+			},
+		})
+	}
+
+	const handleSelectForEdit = (todo) => {
+		navigation.navigate({
+			name: 'FormScreen',
 			params: {
 				key: todo.key,
 				title: todo.title,
@@ -49,31 +55,39 @@ export const TodoList = ({ navigation }) => {
 		return Alert.alert(title, description, [cancelButton, confirmButton])
 	}
 
-	const uncheckedFirstSort = (left, right) =>
-		left.checked === right.checked ? 0 : left.checked ? 1 : -1
+	const uncheckedFirstSort = (left, right) => {
+		if(left.checked === right.checked) {
+			return 0
+		} else {
+			return left.checked ? 1 : -1
+		}
+	}
+
+	const status = isLoading
+		? 'Requesting data'
+		: 'Up to date'
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.content}>
-				<Card style={styles.formCard}>
-					<TodoForm onAdd={handleAdd} />
-				</Card>
-				<Card style={styles.listCard}>
-					<Text>{isLoading ? 'Requesting data' : 'Up to date'}</Text>
-					<FlatList
-						data={[...todoList].sort(uncheckedFirstSort)}
-						style={styles.list}
-						renderItem={({ item }) => (
-							<TodoListItem
-								todo={item}
-								onPress={() => handleSelect(item)}
-								onCheckTodo={({ checked }) => handleCheck({ ...item, checked })}
-								onRemoveTodo={() => handleRemove(item)}
-							/>
-						)}
-						keyExtractor={(item) => item.key}
-					/>
-				</Card>
+			<View style={styles.statusBar}>
+				<Text style={styles.statusTitle}>Status:</Text>
+				<Text>{status}</Text>
+			</View>
+			<View style={styles.listCard}>
+				<FlatList
+					data={[...todoList].sort(uncheckedFirstSort)}
+					style={styles.list}
+					renderItem={({ item }) => (
+						<TodoListItem
+							todo={item}
+							onPress={() => handleSelect(item)}
+							onCheckTodo={({ checked }) => handleCheck({ ...item, checked })}
+							onRequestEdit={() => handleSelectForEdit(item)}
+							onRemoveTodo={() => handleRemove(item)}
+						/>
+					)}
+					keyExtractor={(item) => item.key}
+				/>
 			</View>
 		</View>
 	)
@@ -83,10 +97,15 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: theme.screen.color.background,
+		paddingHorizontal: 16,
 	},
-	content: {
-		flex: 1,
-		margin: theme.screen.margin.small,
+	statusBar: {
+		flexDirection: "row",
+		margin: 6
+	},
+	statusTitle: {
+		fontWeight: "bold",
+		marginRight: 6
 	},
 	listCard: {
 		flex: 1,

@@ -2,17 +2,22 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import theme from '../../constants/theme'
 
-export const Button = ({ variant, style = {}, children, onPress }) => {
+export const Button = ({ variant, style = {}, textStyle = {}, children, onPress }) => {
 	const variants = {
 		primary: primaryVariantStyles,
 		danger: dangerVariantStyles,
 		link: linkVariantStyles,
+		clear: clearVariantStyles
 	}
 	const variantStyles = variants.hasOwnProperty(variant) ? variants[variant] : {}
 
 	return (
 		<TouchableOpacity onPress={onPress} style={[styles.container, variantStyles.container, style]}>
-			<Text style={[styles.text, variantStyles.text]}>{children}</Text>
+			{ typeof children === 'string' ? (
+				<Text style={[styles.text, variantStyles.text, textStyle]}>{children}</Text>
+			) : (
+				children
+			)}
 		</TouchableOpacity>
 	)
 }
@@ -60,6 +65,14 @@ const linkVariantStyles = StyleSheet.create({
 		color: theme.button.color.text.link,
 		textDecorationLine: 'underline',
 	},
+})
+
+const clearVariantStyles = StyleSheet.create({
+	container: {
+		backgroundColor: "transparent",
+		padding: 0,
+		margin: 0
+	}
 })
 
 export default Button

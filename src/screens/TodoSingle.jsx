@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Image } from 'react-native'
 import { Card } from '../components/atoms'
 import theme from '../constants/theme'
 
@@ -24,6 +24,9 @@ export const TodoSingle = ({ route }) => {
 						<Text style={styles.titleText}>State</Text>
 						<Text>{todo.checked ? 'Checked' : 'Unchecked'}</Text>
 					</View>
+					{ todo.photo && (
+						<Image source={{ uri: todo.photo }} style={styles.image}/>
+					)}
 				</Card>
 			</View>
 		</View>
@@ -52,6 +55,9 @@ const styles = StyleSheet.create({
 	buttonBarRow: {
 		flexDirection: 'row',
 		justifyContent: 'flex-end',
+	},
+	image: {
+		height: 240
 	},
 })
 

@@ -1,14 +1,16 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { TodoList, TodoSingle } from '../screens'
+import { TodoForm, TodoList, TodoSingle } from '../screens'
+import { Ionicons } from '@expo/vector-icons'
 import theme from '../constants/theme'
+import { Button } from '../components/atoms'
 
 const Stack = createNativeStackNavigator()
 
 export const TodoListNavigator = () => {
 	return (
 		<Stack.Navigator
-			initialRouteName="List"
+			initialRouteName="ListScreen"
 			screenOptions={{
 				headerStyle: {
 					backgroundColor: theme.header.color.background,
@@ -19,17 +21,45 @@ export const TodoListNavigator = () => {
 				},
 			}}
 		>
-			<Stack.Screen name="List" component={TodoList} options={{ title: 'To-do list' }} />
 			<Stack.Screen
-				name="Single"
-				component={TodoSingle}
-				options={({
-					route: {
-						params: { title },
-					},
-				}) => ({
-					title,
+				name="ListScreen"
+				component={TodoList}
+				options={({ navigation }) => ({
+					title: 'To-do list',
+					headerRight: () => (
+						<Button variant="clear" onPress={() => navigation.navigate("FormScreen")}>
+							<Ionicons name="add-circle-outline" size={26} color="#FFF"/>
+						</Button>
+					)
 				})}
+			/>
+			<Stack.Screen
+				name="SingleScreen"
+				component={TodoSingle}
+				options={({ route, navigation }) => {
+					const { params: { key, title } } = route
+					return {
+						title,
+						headerRight: () => (
+							<Button
+								variant="clear"
+								onPress={() => {
+									navigation.navigate({
+										name: "FormScreen",
+										params: { key }
+									})
+								}}
+							>
+								<Ionicons name="create-outline" size={26} color="#FFF"/>
+							</Button>
+						)
+					}
+				}}
+			/>
+			<Stack.Screen
+				name="FormScreen"
+				component={TodoForm}
+				options={{ title: 'To-do form' }}
 			/>
 		</Stack.Navigator>
 	)

@@ -42,7 +42,7 @@ export const loadTodos = () => {
 				dispatch(setList(list))
 			}
 		} catch(error) {
-			console.log("Error", error)
+			console.error("Error", error)
 		} finally {
 			dispatch(setLoading(false))
 		}
@@ -61,7 +61,7 @@ export const addTodo = (todo) => {
 				...newData
 			}))
 		} catch(error) {
-			console.log("Error", error)
+			console.error("Error", error)
 		} finally {
 			dispatch(setLoading(false))
 		}
@@ -77,7 +77,7 @@ export const editTodo = (todo) => {
 			await fetchTodos({ method: "PUT", key, body: newData })
 			dispatch(replaceTodo(todo))
 		} catch(error) {
-			console.log("Error", error)
+			console.error("Error", error)
 		} finally {
 			dispatch(setLoading(false))
 		}
@@ -92,7 +92,7 @@ export const deleteTodo = (todo) => {
 			await fetchTodos({ method: "DELETE", key })
 			dispatch(removeTodo({ key }))
 		} catch(error) {
-			console.log("Error", error)
+			console.error("Error", error)
 		} finally {
 			dispatch(setLoading(false))
 		}
